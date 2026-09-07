@@ -1,0 +1,9 @@
+# Local build products and compiler caches
+build/
+
+# macOS metadata
+.DS_Store
+
+# Temporary release packages
+*.zip
+*.dmg
