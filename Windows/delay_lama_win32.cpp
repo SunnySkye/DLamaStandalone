@@ -5,6 +5,7 @@
 
 #include <windows.h>
 #include <mmsystem.h>
+#include <objidl.h>
 #include <shellapi.h>
 #include <gdiplus.h>
 
