@@ -1,0 +1,43 @@
+name: Windows native build
+
+on:
+  push:
+    paths:
+      - "DSP/**"
+      - "Sources/standalone_bridge.h"
+      - "Tests/**"
+      - "Windows/**"
+      - ".github/workflows/windows.yml"
+  pull_request:
+    paths:
+      - "DSP/**"
+      - "Sources/standalone_bridge.h"
+      - "Tests/**"
+      - "Windows/**"
+      - ".github/workflows/windows.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Build and package Release
+        shell: pwsh
+        run: .\Windows\package-release.ps1 -Clean
+
+      - name: Focused Windows smoke tests
+        shell: pwsh
+        run: ctest --test-dir Windows/build -C Release -R "delay_lama_windows_(smoke|bridge_smoke)$" --output-on-failure
+
+      - name: Upload ZIP and checksum
+        uses: actions/upload-artifact@v4
+        with:
+          name: delay-lama-windows-x64
+          if-no-files-found: error
+          path: |
+            Windows/build/package/DelayLamaStandalone-v1.0-windows-x64.zip
+            Windows/build/package/DelayLamaStandalone-v1.0-windows-x64.zip.sha256

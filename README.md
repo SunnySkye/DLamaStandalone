@@ -24,6 +24,11 @@ targets macOS 13 or later and contains native arm64 and x86_64 executables.
 Run `./build.sh` on macOS with Xcode Command Line Tools installed. The generated
 application is written to `build/Delay Lama Standalone.app`.
 
+For a native Windows build, run `.\Windows\build.ps1` from PowerShell with
+CMake, the Windows SDK, and the Visual Studio Desktop C++ workload installed.
+This uses the shared C DSP with Win32/GDI+, WinMM audio, and WinMM MIDI; see
+[`Windows/README.md`](Windows/README.md) for the CMake, CTest, and CI details.
+
 ## Provenance and licensing
 
 The vocal synthesis code is derived from Jonathan Taylor's MIT-licensed
