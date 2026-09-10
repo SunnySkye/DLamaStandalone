@@ -1,6 +1,3 @@
-#define UNICODE
-#define _UNICODE
-#define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 
 #include <windows.h>
@@ -429,10 +426,10 @@ private:
             const float x = kXYRect.left + xy_x_ * (kXYRect.right - kXYRect.left);
             const float y = kXYRect.top + xy_y_ * (kXYRect.bottom - kXYRect.top);
             Pen cross(Color(185, 255, 255, 255), 1.0f);
-            graphics.DrawLine(&cross, PointF(static_cast<REAL>(kXYRect.left), y),
-                              PointF(static_cast<REAL>(kXYRect.right), y));
-            graphics.DrawLine(&cross, PointF(x, static_cast<REAL>(kXYRect.top)),
-                              PointF(x, static_cast<REAL>(kXYRect.bottom)));
+            graphics.DrawLine(&cross, PointF(static_cast<Gdiplus::REAL>(kXYRect.left), y),
+                              PointF(static_cast<Gdiplus::REAL>(kXYRect.right), y));
+            graphics.DrawLine(&cross, PointF(x, static_cast<Gdiplus::REAL>(kXYRect.top)),
+                              PointF(x, static_cast<Gdiplus::REAL>(kXYRect.bottom)));
             SolidBrush marker(Color(230, 255, 255, 255));
             graphics.FillEllipse(&marker, RectF(x - 4.0f, y - 4.0f, 8.0f, 8.0f));
         }
@@ -637,7 +634,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR, int command_show) {
     SetProcessDPIAware();
 
     Gdiplus::GdiplusStartupInput gdiplus_input;
-    ULONG gdiplus_token = 0;
+    ULONG_PTR gdiplus_token = 0;
     if (Gdiplus::GdiplusStartup(&gdiplus_token, &gdiplus_input, nullptr) != Gdiplus::Ok) {
         MessageBoxW(nullptr, L"Could not initialise Windows graphics.", L"Delay Lama Standalone",
                     MB_OK | MB_ICONERROR);
